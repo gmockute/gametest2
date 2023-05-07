@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>The Office</title>
 </head>
 <body>
+
+<form action="#" th:action="@{/game/player/player_name}" th:object="${key_player}" method="post">
+    <label>Company name:</label>
+    <input type="text" th:field="${key_player.playerName}" id="playerName"/>
+    <input type="submit" value="Submit" />
+    <input type="submit" value="Clear" onclick="document.getElementById('playerName').value = ''"/>
+</form>
+<br>
+
+<table>
+    <tr>
+        <th class="th">#</th>
+        <th class="th">Player Name</th>
+        <th class="th">Player Experience</th>
+        <th class="th">Player Charisma</th>
+        <th class="th">Player Luck</th>
+    </tr>
+
+    <tr th:each="player : ${key_player_list}">
+        <td class="td" th:text="${player.playerName}"></td>
+        <td class="td" th:text="${player.experience}"></td>
+        <td class="td" th:text="${player.charisma}"></td>
+        <td class="td" th:text="${player.luck}"></td>
+    </tr>
+</table>
 
 </body>
 </html>

@@ -31,17 +31,12 @@ public class PlayerController {
     @RequestMapping(value = "/enter_player_name", method = RequestMethod.POST)
     public String postPlayerByName (Model model, @ModelAttribute(value = "key_player") Player player){
         List<Player> userEntry = playerService.searchPlayerByName(player.getPlayerName());
-        if (userEntry.size() == 0) {
-            if(player.getPlayerName() == null || player.getPlayerName().isEmpty()) {
-                player.setPlayerName("Default Player");
-            }
-            playerService.savePlayerByName(String.valueOf(player));
-            playerService.generateAllPlayers();
-            model.addAttribute("player", player);
-            return "/game/challenge/execute_challenge";
+        if (userEntry.isEmpty()) {
+            playerService.savePlayerByName(player.getPlayerName());
+            return "/create_new_player";
         } else {
-            model.addAttribute("player", userEntry.get(0));
-            return "/game/challenge/execute_challenge";
+            model.addAttribute("player", player);
+            return "/execute_challenge";
         }
     }
 

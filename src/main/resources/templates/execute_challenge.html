@@ -1,10 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    < <meta charset="UTF-8">
+    <title>THE OFFICE</title>
+    <style>
+    body {
+      font-family: Courier New;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+    }
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 250px;
+      height: auto;
+    }
+    button {
+      display: block;
+      width: 300px;
+	  height: 50px;
+	  margin: auto;
+	  background-color: #566573;
+      font-family: Courier New;
+	  font-size: 32px;
+	  color: #FFFFFF;
+    }
+    button:hover {
+      background-color: #CD6155;
+      color: #FFFFFF;
+    }
+    table, th, td {
+      border: 1px solid black;
+      text-align: center;
+      font-family: Courier New;
+      font-size: 12px;
+      margin: 0 auto
+    }
+
+    input[type=checkbox] {
+      position: relative;
+      padding: 0;
+    }
+
+    form {
+      text-align: center;
+      margin: 0 auto
+   }
+  </style>
+
 </head>
 <body>
-
+<h1>ANOTHER DAY IN THE OFFICE WHEN:</h1>
+<h2 th:text="${challengeDescription}"></h2>
+<div style="display: flex;">
+    <div>
+        <img src="https://media.tenor.com/7Mh3QqMctdMAAAAC/pixelart-dance.gif"/>
+    </div>
+    <div>
+        <img src="https://cdnb.artstation.com/p/assets/images/images/051/176/777/original/ol-fairo-nino-idle.gif?1656623976"/>
+        <table>
+            <tr>
+                <th>Opponent Name</th>
+                <th>Some text</th>
+            </tr>
+            <tr>
+                <td>Opponent Position</td>
+                <td>Some text</td>
+            </tr>
+            <tr>
+                <td>Opponent Description</td>
+                <td>Some text</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<br>
+<form>
+    <input type="submit" value="TAKE ACTION" />
+    <input type="submit" value="DO NOTHING"/>
+</form>
+</br>
 </body>
 </html>

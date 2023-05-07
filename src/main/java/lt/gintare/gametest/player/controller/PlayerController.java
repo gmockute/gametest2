@@ -20,30 +20,31 @@ public class PlayerController {
 
     // METHOD (get&post) 1 -> search for name entered by user in database &
     // (1) save name if not found or (2) retrieve player if found
-    // URL: http://localhost:8080/game/player/player_name
+    // http://localhost:8080/game/player/enter_player_name
     @RequestMapping(value = "/enter_player_name", method = RequestMethod.GET)
     public String getPlayerByName (Model model) {
-        model.addAttribute("key_player", new Player());
-        model.addAttribute("key_player_list", Collections.emptyList());
-        return "/enter_player_name";
+          model.addAttribute("key_player", new Player());
+          model.addAttribute("key_player_list", Collections.emptyList());
+       return "/enter_player_name";
     }
 
     @RequestMapping(value = "/enter_player_name", method = RequestMethod.POST)
     public String postPlayerByName (Model model, @ModelAttribute(value = "key_player") Player player){
-        List<Player> userEntry = playerService.searchPlayerByName(player.getPlayerName());
-        if (userEntry.isEmpty()) {
-            playerService.savePlayerByName(player.getPlayerName());
-            return "/create_new_player";
-        } else {
-            model.addAttribute("player", player);
-            return "/execute_challenge";
-        }
-    }
+           List<Player> userEntry = playerService.searchPlayerByName(player.getPlayerName());
+          if (userEntry.isEmpty()) {
+              playerService.savePlayerByName(player.getPlayerName());
+          return "/create_new_player";
+          } else {
+              model.addAttribute("player", player);
+          return "/execute_challenge";
+          }
+       }
 
     // http://localhost:8080/game/player/{name}
     @GetMapping(path = "/{name}")
     public @ResponseBody List<Player> getPlayerByName (@PathVariable String name){
         return playerService.searchPlayerByName(name);
-    };
+    }
+
 
 }

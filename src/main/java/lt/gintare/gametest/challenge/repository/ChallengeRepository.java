@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ChallengeRepository extends CrudRepository <Challenge, Integer> {
 
-    // QUERY 1 -> save challenge object to game_repository.challenge
     @Query(value = "INSERT INTO challenge (" +
             "player_id, " +
             "character_id, " +
@@ -15,7 +14,7 @@ public interface ChallengeRepository extends CrudRepository <Challenge, Integer>
             "VALUES (:playerId, :charId, :status)",
             nativeQuery = true)
     @Modifying
-    void addChallenge(@Param("playerId") int playerId,
+    void saveChallenge(@Param("playerId") int playerId,
                       @Param("charId") int characterId,
                       @Param("status") String battleStatus);
 

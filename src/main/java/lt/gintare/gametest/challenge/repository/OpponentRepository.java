@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface OpponentRepository extends CrudRepository <Opponent, Integer> {
 
-    // QUERY 1 -> gets random opponent and puts it in a list
     @Query(value = "SELECT opponent_id, " +
                    "opponent_name, " +
                    "opponent_role, " +

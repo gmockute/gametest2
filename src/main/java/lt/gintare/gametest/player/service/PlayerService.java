@@ -36,7 +36,7 @@ public class PlayerService {
         }
         return randomPlayers;
     }
-
+    
     // METHOD 4 -> save player object to database
     public void savePlayer(String name, int experience, int charisma, int luck) {
         playerRepository.addPlayer(name, experience, charisma, luck);

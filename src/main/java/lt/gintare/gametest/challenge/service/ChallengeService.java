@@ -6,7 +6,6 @@ import lt.gintare.gametest.challenge.repository.OpponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +18,8 @@ public class ChallengeService {
     ChallengeRepository challengeRepository;
 
     //METHOD 1 -> get random opponent
-    public Opponent getOpponent () {
-        Opponent opponent = new Opponent();
-        opponent.setOpponentDescription(String.valueOf(opponentRepository.findRandomOpponent().get(0)));
-        opponent.setOpponentName(String.valueOf(opponentRepository.findRandomOpponent().get(1)));
-        opponent.setOpponentRole(String.valueOf(opponentRepository.findRandomOpponent().get(3)));
-        return opponent;
+    public Opponent getOpponent() {
+        return opponentRepository.getRandomOpponentDetails();
     }
 
     // METHOD 2 -> generate random opponent stats to compare to player stats & puts them in list

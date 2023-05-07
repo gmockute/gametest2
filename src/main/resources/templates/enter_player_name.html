@@ -1,35 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>The Office</title>
+    <title>THE OFFICE</title>
+    <style>
+    body {
+          font-family: Courier New;
+          font-size: 18px;
+          font-weight: bold;
+          }
+    h1 {
+        text-align: center;
+        font-size: 36px;
+        font-weight: bold;
+       }
+
+    h2 {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+       }
+    img {
+         display: block;
+         margin-left: auto;
+         margin-right: auto;
+         width: 250px;
+         height: auto;
+        }
+    button {
+         display: block;
+         width: 300px;
+	     height: 50px;
+	     margin: auto;
+	     background-color: #566573;
+         font-family: Courier New;
+	     font-size: 32px;
+	     color: #FFFFFF;
+        }
+
+    form {
+      text-align: center;
+      margin: 0 auto
+   }
+
+    </style>
 </head>
+
 <body>
+<div>
+    <h1>WELCOME TO THE OFFICE!</h1>
+</div>
+<div>
+    <h2>Your name is needed to get access to the building</h2>
+</div>
+<div>
+    <img src="https://i.pinimg.com/originals/f3/cc/f7/f3ccf75f1883faea777a00f351c5dc60.gif"/>
+</div>
+<div>
 
-<form action="#" th:action="@{/game/player/player_name}" th:object="${key_player}" method="post">
-    <label>Company name:</label>
-    <input type="text" th:field="${key_player.playerName}" id="playerName"/>
-    <input type="submit" value="Submit" />
-    <input type="submit" value="Clear" onclick="document.getElementById('playerName').value = ''"/>
-</form>
-<br>
+    <form th:action="@{/game/player/test}" method="post">
+        <button type="submit">Call Test Method</button>
+    </form>
 
-<table>
-    <tr>
-        <th class="th">#</th>
-        <th class="th">Player Name</th>
-        <th class="th">Player Experience</th>
-        <th class="th">Player Charisma</th>
-        <th class="th">Player Luck</th>
-    </tr>
-
-    <tr th:each="player : ${key_player_list}">
-        <td class="td" th:text="${player.playerName}"></td>
-        <td class="td" th:text="${player.experience}"></td>
-        <td class="td" th:text="${player.charisma}"></td>
-        <td class="td" th:text="${player.luck}"></td>
-    </tr>
-</table>
-
+</div>
 </body>
+
 </html>

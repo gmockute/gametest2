@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     < <meta charset="UTF-8">
     <title>THE OFFICE</title>
@@ -56,8 +57,8 @@
 
 </head>
 <body>
-<h1>ANOTHER DAY IN THE OFFICE WHEN:</h1>
-Some Text After Title Describing Event (Challenge)
+<h1>ANOTHER DAY IN THE OFFICE WHEN</h1>
+a bee flies into the meeting room. Your opponent starts to chase it. You are allergic to bees - what do you do.
 <div style="display: flex;">
     <div>
         <img src="https://media.tenor.com/7Mh3QqMctdMAAAAC/pixelart-dance.gif"/>
@@ -66,16 +67,16 @@ Some Text After Title Describing Event (Challenge)
         <img src="https://cdnb.artstation.com/p/assets/images/images/051/176/777/original/ol-fairo-nino-idle.gif?1656623976"/>
         <table>
             <tr>
-                <th>Oponent Name</th>
-                <th>Some text</th>
+                <th>Opponent Name</th>
+                <td th:text="${opponent.name}"></td>
             </tr>
             <tr>
-                <td>Oponent Position</td>
-                <td>Some text</td>
+                <td>Opponent Role</td>
+                <td th:text="${opponent.role}"></td>
             </tr>
             <tr>
-                <td>Oponent Description</td>
-                <td>Some text</td>
+                <td>Opponent Description</td>
+                <td th:text="${opponent.description}"></td>
             </tr>
         </table>
     </div>

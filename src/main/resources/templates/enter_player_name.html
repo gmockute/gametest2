@@ -30,7 +30,7 @@
         }
     button {
          display: block;
-         width: 300px;
+         width: 200px;
 	     height: 50px;
 	     margin: auto;
 	     background-color: #566573;
@@ -58,11 +58,11 @@
     <img src="https://i.pinimg.com/originals/f3/cc/f7/f3ccf75f1883faea777a00f351c5dc60.gif"/>
 </div>
 <div>
-
-    <form th:action="@{/game/player/test}" method="post">
-        <button type="submit">Call Test Method</button>
+    <form th:action="@{/game/player/enter_player_name}" method="post">
+        <label for="playerName">Enter your name:</label>
+        <input type="text" id="playerName" name="playerName"><br><br>
+        <button type="submit">Next -></button>
     </form>
-
 </div>
 </body>
 

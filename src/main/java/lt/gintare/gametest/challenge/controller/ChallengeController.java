@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/game/challenge")
@@ -33,8 +34,10 @@ public class ChallengeController {
     // METHOD 1 -> get random opponent details
     // http://localhost:8080/game/challenge/execute_challenge.html
     @GetMapping(path = "/execute_challenge.html")
-    public Opponent getRandomOpponent (Model model){
-        return challengeService.getOpponent();
+    public String getOpponent(Model model) {
+        Opponent opponent = challengeService.getOpponent();
+        model.addAttribute("opponent", opponent);
+        return "/execute_challenge";
     }
 
     // METHOD 2 -> displays player name (entry in page 2) if new player or select from database if existing player
@@ -44,8 +47,8 @@ public class ChallengeController {
     // http://localhost:8080/game/challenge/execute_challenge.html
     public String startChallenge() {
         String result;
-        java.util.List<Player> players;
-        java.util.List<Integer> stats = new ArrayList<>();
+        List<Player> players;
+        List<Integer> stats = new ArrayList<>();
 
         players = playerService.generateAllPlayers();
 

@@ -31,9 +31,7 @@ public class ChallengeService {
         return opponent;
     }
 
-    // METHOD 3: gets player stats that were picked by user
-
-    // METHOD: compare stats and assign scores (TakeChallenge button)
+    // METHOD 3-> compare stats and assign scores (TakeChallenge button)
     public int executeChallenge1(List<Integer> opponent, List<Integer> player) {
         int result = 0;
         if (opponent.get(0) > player.get(0)) {
@@ -48,7 +46,7 @@ public class ChallengeService {
         return result;
     }
 
-    // METHOD CS.5 - ExecuteChallenge2 - compare stats and assign scores (DoNothing button)
+    // METHOD 4 -> ExecuteChallenge2 - compare stats and assign scores (DoNothing button)
     public int executeChallenge2(List<Integer> opponent, List<Integer> player) {
         int result = 0;
         if (opponent.get(0) > player.get(0)) {
@@ -64,21 +62,9 @@ public class ChallengeService {
 
     }
 
-    // METHOD 4 -> determine battle status
-    public String getBattleStatus(){
-        String battleStatus = null;
-        int result = 0;
-        if (result >= 2) {
-            battleStatus = "Won";
-        } else {
-            battleStatus = "Lost";
-        }
-        return battleStatus;
-    }
-
     // METHOD 5 -> save challenge object to database
     public void saveChallenge(int playerId, int characterId, String battleStatus) {
-        challengeRepository.addChallenge(playerId, characterId, battleStatus);
+        challengeRepository.saveChallenge(playerId, characterId, battleStatus);
     }
 
 

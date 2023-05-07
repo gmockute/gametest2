@@ -10,6 +10,6 @@ public interface OpponentRepository extends CrudRepository <Opponent, Integer> {
                    "opponent_role, " +
                    "opponent_description" +
             " FROM game_repository.opponent ORDER BY RAND() LIMIT 1", nativeQuery = true)
-    Opponent getRandomOpponentDetails();
+    Opponent getRandomOpponent();
 
 }

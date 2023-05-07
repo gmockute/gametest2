@@ -19,7 +19,7 @@ public class ChallengeService {
 
     //METHOD 1 -> get random opponent
     public Opponent getOpponent() {
-        return opponentRepository.getRandomOpponentDetails();
+        return opponentRepository.getRandomOpponent();
     }
 
     // METHOD 2 -> generate random opponent stats to compare to player stats & puts them in list

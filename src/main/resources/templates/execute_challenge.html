@@ -66,18 +66,23 @@ a bee flies into the meeting room. Your opponent starts to chase it. You are all
     <div>
         <img src="https://cdnb.artstation.com/p/assets/images/images/051/176/777/original/ol-fairo-nino-idle.gif?1656623976"/>
         <table>
+            <thead>
             <tr>
-                <th>Opponent Name</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${opponent != null}">
                 <td th:text="${opponent.name}"></td>
-            </tr>
-            <tr>
-                <td>Opponent Role</td>
                 <td th:text="${opponent.role}"></td>
-            </tr>
-            <tr>
-                <td>Opponent Description</td>
                 <td th:text="${opponent.description}"></td>
             </tr>
+            <tr th:unless="${opponent != null}">
+                <td colspan="3">No opponents available!</td>
+            </tr>
+            </tbody>
         </table>
     </div>
 </div>

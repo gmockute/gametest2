@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    < <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>THE OFFICE</title>
     <style>
     body {
@@ -58,39 +58,41 @@
 </head>
 <body>
 <h1>ANOTHER DAY IN THE OFFICE WHEN</h1>
-a bee flies into the meeting room. Your opponent starts to chase it. You are allergic to bees - what do you do.
+<p>a bee flies into the meeting room. Your opponent starts to chase it. You are allergic to bees - what do you do.</p>
 <div style="display: flex;">
     <div>
         <img src="https://media.tenor.com/7Mh3QqMctdMAAAAC/pixelart-dance.gif"/>
     </div>
     <div>
-        <img src="https://cdnb.artstation.com/p/assets/images/images/051/176/777/original/ol-fairo-nino-idle.gif?1656623976"/>
+        <img src="https://images.squarespace-cdn.com/content/v1/578e5aeac534a56c7f816074/1597179129676-4B6ZIZ0V9YLEVDLO4CYZ/ColinAnimation.gif?format=1500w"/>
+
+        <br>
         <table>
-            <thead>
             <tr>
-                <th>Name</th>
-                <th>Role</th>
-                <th>Description</th>
+                <th class="th">Opponent Name</th>
+                <th class="th">Role</th>
+                <th class="th">Description</th>
             </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${opponent != null}">
-                <td th:text="${opponent.name}"></td>
-                <td th:text="${opponent.role}"></td>
-                <td th:text="${opponent.description}"></td>
+
+            <tr th:if="${#lists.isEmpty(key_opponent_list)}">
+                <td colspan="5">No Opponents Found!</td>
             </tr>
-            <tr th:unless="${opponent != null}">
-                <td colspan="3">No opponents available!</td>
+
+            <tr th:each="opponent : ${key_opponent_list}">
+                <td class="td" th:text="${opponent.opponentName}"></td>
+                <td class="td" th:text="${opponent.opponentRole}"></td>
+                <td class="td" th:text="${opponent.opponentDescription}"></td>
             </tr>
-            </tbody>
         </table>
     </div>
 </div>
 <br>
-<form>
-    <input type="submit" value="TAKE ACTION" />
-    <input type="submit" value="DO NOTHING"/>
+
+<form action="#" th:action="@{/executeChallenge}" th:object="${key_challenge}" method="post">
+    <input type="submit" value="Take Action" />
+    <input type="submit" value="Do Nothing" onclick="document.getElementById('companyName').value = ''"/>
 </form>
+
 </br>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -68,37 +68,19 @@
         <th><b>Charisma</b></th>
         <th><b>Luck</b></th>
     </tr>
-    <tr>
-    <tr>
-        <td><b>CHARACTER</b></td>
-        <td ></td>
-        <td ></td>
-        <td ></td>
-    </tr>
-    <td><b>CHARACTER 1</b></td>
-    <td>Some data</td>
-    <td>Some data</td>
-    <td>Some data</td>
-    </tr>
-    <tr>
-        <td><b>CHARACTER 2</b></td>
-        <td>Some data</td>
-        <td>Some data</td>
-        <td>Some data</td>
-    </tr>
-    <tr>
-        <td><b>CHARACTER 3</b></td>
-        <td>Some data</td>
-        <td>Some data</td>
-        <td>Some data</td>
+    <tr th:each="player, iterStat : ${players_list}">
+        <td th:text="'CHARACTER ' + ${iterStat.index + 1}"></td>
+        <td th:text="${player.experience}"></td>
+        <td th:text="${player.charisma}"></td>
+        <td th:text="${player.luck}"></td>
     </tr>
 </table>
 </br>
 
-<form>
-    Character 1 <input type="checkbox" name="choice1" value="choice1"> <br>
-    Character 2 <input type="checkbox" name="choice2" value="choice2"> <br>
-    Character 3 <input type="checkbox" name="choice3" value="choice3"> <br>
+<form action="/getResult" method="get">
+    Character 1 <input type="radio" name="selectChar" value="choice1"> <br>
+    Character 2 <input type="radio" name="selectChar" value="choice2"> <br>
+    Character 3 <input type="radio" name="selectChar" value="choice3"> <br>
     <br>
     <input type="submit" value="SAVE & CONTINUE"/>
 </form>

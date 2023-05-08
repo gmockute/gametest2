@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>lt.gintare</groupId>
-	<artifactId>final_game</artifactId>
+	<artifactId>final_game2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gametest</name>
 	<description>TEST</description>

@@ -37,7 +37,7 @@ public class ChallengeController {
     @RequestMapping(value = "/enter_player_name", method = RequestMethod.GET)
     public String getSelectClass(Model model, @RequestParam("playerName") String playerName) {
 
-        //čia jau galim pasiimt reikšmes iš formos ir susiet su beansais, db, kuo tik nori
+        //
 
         return "create_new_player.html";
     }
@@ -45,8 +45,7 @@ public class ChallengeController {
     @RequestMapping(value = "/execute_challenge", method = RequestMethod.GET)
     public String getYourCharacter(Model model, @RequestParam("playerName") String playerName) {
 
-        //čia jau galim pasiimt reikšmes iš formos ir susiet su beansais, db, kuo tik nori
-        //čia tada galima jeigu yra tai iškart eit į challenge, jei nėra, tai select char
+        //
 
         return "execute_new_challenge.html";
 

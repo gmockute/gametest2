@@ -7,9 +7,7 @@ import lt.gintare.gametest.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,20 +22,41 @@ public class ChallengeController {
     @Autowired
     PlayerService playerService;
 
-    // METHOD 0 -> display text in challenge page
-    // http://localhost:8080/game/challenge/execute_challenge.html
-    @GetMapping(path = "/execute_challenge")
-    public @ResponseBody String challengeDescription(){
-        return "Challenge description";
+    @GetMapping({"/", "/start_mygame_page"})
+    public String getHomePage (Model model) {
+        return "start_mygame_page.html";
     }
+
+    @RequestMapping(value = "/enter_player_name", method = RequestMethod.GET)
+    public String gateEnterPlayerName(Model model) {
+        return "enter_player_name.html";
+    }
+
+    // !!! metodo viduj pasiimam reiksmes is formos ir next actions ->
+
+    @RequestMapping(value = "/enter_player_name", method = RequestMethod.GET)
+    public String getSelectClass(Model model, @RequestParam("playerName") String playerName) {
+
+        //čia jau galim pasiimt reikšmes iš formos ir susiet su beansais, db, kuo tik nori
+
+        return "create_new_player.html";
+    }
+
+    @RequestMapping(value = "/execute_challenge", method = RequestMethod.GET)
+    public String getYourCharacter(Model model, @RequestParam("playerName") String playerName) {
+
+        //čia jau galim pasiimt reikšmes iš formos ir susiet su beansais, db, kuo tik nori
+        //čia tada galima jeigu yra tai iškart eit į challenge, jei nėra, tai select char
+
+        return "execute_new_challenge.html";
 
     // METHOD 1 -> get random opponent details
     // http://localhost:8080/game/challenge/execute_challenge.html
-    @GetMapping(path = "/execute_challenge.html")
-    public String getOpponent(Model model) {
-        Opponent opponent = challengeService.getOpponent();
-        model.addAttribute("opponent", opponent);
-        return "/execute_challenge";
+    // @GetMapping(path = "/execute_challenge/old")
+   // public String getOpponent(Model model) {
+        // Opponent opponent = challengeService.getOpponent();
+        //model.addAttribute("opponent", opponent);
+        //return "/execute_challenge";
     }
 
     // METHOD 2 -> displays player name (entry in page 2) if new player or select from database if existing player
@@ -45,7 +64,9 @@ public class ChallengeController {
     // METHOD 3 -> upon button1 press calls method in ChallengeService to execute challenge1
     // if result is 2 or 3 - loads win page and if 0 or 1 - loads loose page
     // http://localhost:8080/game/challenge/execute_challenge.html
-    public String startChallenge() {
+    @RequestMapping(value = "/getResult", method = RequestMethod.GET)
+    public String getGameResult(Model model, @RequestParam("selectChar") String choice) {
+
         String result;
         List<Player> players;
         List<Integer> stats = new ArrayList<>();

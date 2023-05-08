@@ -37,16 +37,17 @@ public class ChallengeController {
     // Get Player Name -> Create New Player OR Execute Challenge
     // http://localhost:8080/create_new_player.html
     @RequestMapping(value = "/selectCharacter", method = RequestMethod.GET)
-    public String getSelectClass(Model model, @RequestParam("playerName") String playerName) {
+    public String getYourCharacter(Model model, @RequestParam("playerName") String playerName) {
 
+        System.out.println("Pasiimam info!");
 
         return "create_new_player";
     }
 
     @RequestMapping(value = "/doChallenge", method = RequestMethod.GET)
-    public String getYourCharacter(Model model, @RequestParam("playerName") String playerName) {
+    public String getYourChallenge(Model model, @RequestParam("playerName") String playerName) {
 
-        //
+        System.out.println("Pasiimam info!");
 
         return "execute_new_challenge";
 

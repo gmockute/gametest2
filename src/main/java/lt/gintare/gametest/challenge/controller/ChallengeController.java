@@ -22,7 +22,7 @@ public class ChallengeController {
     @Autowired
     PlayerService playerService;
 
-    // Home Page -> Enter Player Name
+    // 1. Home Page -> Enter Player Name
     // http://localhost:8080/start_my_page.html
     @GetMapping({"/", "/start_mygame_page"})
     public String getHomePage (Model model) {
@@ -34,7 +34,7 @@ public class ChallengeController {
         return "enter_player_name";
     }
 
-    // Get Player Name -> Create New Player OR Execute Challenge
+    // 2. Get Player Name -> Create New Player OR Execute Challenge
     // http://localhost:8080/create_new_player.html
     @RequestMapping(value = "/selectCharacter", method = RequestMethod.GET)
     public String getYourCharacter(Model model, @RequestParam("playerName") String playerName) {
@@ -47,19 +47,18 @@ public class ChallengeController {
     @RequestMapping(value = "/doChallenge", method = RequestMethod.GET)
     public String getYourChallenge(Model model, @RequestParam("playerName") String playerName) {
 
-        System.out.println("Pasiimam info!");
+        System.out.println("Pasiimam DAR info!");
 
         return "execute_new_challenge";
 
     }
 
-    @PostMapping(value = "/get_opponent")
+    @RequestMapping(value = "/getOpponent")
     public String getOpponent (Model model){
           Opponent opponent = challengeService.getOpponent();
           model.addAttribute("opponent", opponent);
-       return "/execute_challenge.html";
+       return "opponent";
     }
-
 
         // http://localhost:8080/game/challenge/execute_challenge.html
         //@RequestMapping(value = "/get_result", method = RequestMethod.GET)

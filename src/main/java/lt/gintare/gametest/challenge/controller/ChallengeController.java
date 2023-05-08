@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/game/challenge")
+// @RequestMapping("/game/challenge")
 // http://localhost:8080/game/challenge
 public class ChallengeController {
 
@@ -22,50 +22,47 @@ public class ChallengeController {
     @Autowired
     PlayerService playerService;
 
+    // Home Page -> Enter Player Name
+    // http://localhost:8080/start_my_page.html
     @GetMapping({"/", "/start_mygame_page"})
     public String getHomePage (Model model) {
-        return "start_mygame_page.html";
+        return "start_mygame_page";
     }
 
-    @RequestMapping(value = "/enter_player_name", method = RequestMethod.GET)
-    public String gateEnterPlayerName(Model model) {
-        return "enter_player_name.html";
+    @RequestMapping(value = "/enterName", method = RequestMethod.GET)
+    public String getEnterPlayerName(Model model) {
+        return "enter_player_name";
     }
 
-    // !!! metodo viduj pasiimam reiksmes is formos ir next actions ->
-
-    @RequestMapping(value = "/enter_player_name", method = RequestMethod.GET)
+    // Get Player Name -> Create New Player OR Execute Challenge
+    // http://localhost:8080/create_new_player.html
+    @RequestMapping(value = "/selectCharacter", method = RequestMethod.GET)
     public String getSelectClass(Model model, @RequestParam("playerName") String playerName) {
 
-        //
 
-        return "create_new_player.html";
+        return "create_new_player";
     }
 
-    @RequestMapping(value = "/execute_challenge", method = RequestMethod.GET)
+    @RequestMapping(value = "/doChallenge", method = RequestMethod.GET)
     public String getYourCharacter(Model model, @RequestParam("playerName") String playerName) {
 
         //
 
-        return "execute_new_challenge.html";
+        return "execute_new_challenge";
 
-    // METHOD 1 -> get random opponent details
-    // http://localhost:8080/game/challenge/execute_challenge.html
-    // @GetMapping(path = "/execute_challenge/old")
-   // public String getOpponent(Model model) {
-        // Opponent opponent = challengeService.getOpponent();
-        //model.addAttribute("opponent", opponent);
-        //return "/execute_challenge";
     }
 
-    // METHOD 2 -> displays player name (entry in page 2) if new player or select from database if existing player
+    @PostMapping(value = "/get_opponent")
+    public String getOpponent (Model model){
+          Opponent opponent = challengeService.getOpponent();
+          model.addAttribute("opponent", opponent);
+       return "/execute_challenge.html";
+    }
 
-    // METHOD 3 -> upon button1 press calls method in ChallengeService to execute challenge1
-    // if result is 2 or 3 - loads win page and if 0 or 1 - loads loose page
-    // http://localhost:8080/game/challenge/execute_challenge.html
-    @RequestMapping(value = "/getResult", method = RequestMethod.GET)
-    public String getGameResult(Model model, @RequestParam("selectChar") String choice) {
 
+        // http://localhost:8080/game/challenge/execute_challenge.html
+        //@RequestMapping(value = "/get_result", method = RequestMethod.GET)
+        public String getGameResult(Model model, @RequestParam("selectChar") String choice) {
         String result;
         List<Player> players;
         List<Integer> stats = new ArrayList<>();
@@ -79,22 +76,19 @@ public class ChallengeController {
         if (challengeService.executeChallenge1(challengeService.getOpponentStats(), stats) >= 2) {
             result = "/get_result_win.html";
             challengeService.saveChallenge(players.get(1).getPlayerId(),
-                                            challengeService.getOpponent().getOpponentId(),
-                                           "Win");
+                    challengeService.getOpponent().getOpponentId(),
+                    "Win");
         } else {
             result = "/get_result_loose.html";
             challengeService.saveChallenge(players.get(1).getPlayerId(),
-                                           challengeService.getOpponent().getOpponentId(),
-                                           "Loose");
+                    challengeService.getOpponent().getOpponentId(),
+                    "Loose");
         }
 
         return result;
     }
 
-    // METHOD 5: displays result in win and loose pages
-
-    // METHOD 6: displays player name (entry in page 2) if new player or select from database if existing player
-    // win page and loose page
-
-
 }
+
+
+

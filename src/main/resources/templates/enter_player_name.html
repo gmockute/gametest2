@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -58,9 +58,9 @@
     <img src="https://i.pinimg.com/originals/f3/cc/f7/f3ccf75f1883faea777a00f351c5dc60.gif"/>
 </div>
 <div>
-    <form th:action="@{/game/player/enter_player_name}" method="post">
+    <form action="/enter_player_name" method="get">
         <label for="playerName">Enter your name:</label>
-        <input type="text" id="playerName" name="playerName"><br><br>
+        <input type="text" id="playerName" name="playerName" required="required"><br><br>
         <button type="submit">Next -></button>
     </form>
 </div>

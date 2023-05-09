@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 // @RequestMapping("/game/challenge")
@@ -21,71 +20,109 @@ public class ChallengeController {
     ChallengeService challengeService;
     @Autowired
     PlayerService playerService;
+    @Autowired
+    Player player;
+    @Autowired
+    Opponent opponent;
 
     // 1. Home Page -> Enter Player Name
-    // http://localhost:8080/start_my_page.html
+    // http://localhost:8080/start_my_page.html or http://localhost:8080/index.html
     @GetMapping({"/", "/start_mygame_page"})
     public String getHomePage (Model model) {
         return "start_mygame_page";
     }
 
-    @RequestMapping(value = "/enterName", method = RequestMethod.GET)
+    // 2. Enter player name
+    // http://localhost:8080/enterName.html
+    @RequestMapping(value = "/enterName")
     public String getEnterPlayerName(Model model) {
         return "enter_player_name";
     }
 
-    // 2. Get Player Name -> Create New Player OR Execute Challenge
+    // 3. Submit player name & start selecting character
     // http://localhost:8080/create_new_player.html
-    @RequestMapping(value = "/selectCharacter", method = RequestMethod.GET)
+    @RequestMapping(value = "/selectCharacter")
     public String getYourCharacter(Model model, @RequestParam("playerName") String playerName) {
 
-        System.out.println("Pasiimam info!");
+        // * load player from SQL
+        playerOptions = new ArrayList<>();
+        Player player = new Player("", 1,1,1);
 
-        return "create_new_player";
-    }
+        System.out.println("Create new player request");
+        System.out.println(playerName);
 
-    @RequestMapping(value = "/doChallenge", method = RequestMethod.GET)
-    public String getYourChallenge(Model model, @RequestParam("playerName") String playerName) {
+        // * check if name exists
 
-        System.out.println("Pasiimam DAR info!");
+        if (player.getPlayerName().equals(playerName)){
+            opponents = new ArrayList<>();
+            opponents.add(new Opponent("Kavita","EVP","Hell spawn"));
 
-        return "execute_new_challenge";
+            playerOptions.add(player);
+            playerChoice = 1;
 
-    }
+            model.addAttribute("key_opponent_list", opponents);
 
-    @RequestMapping(value = "/getOpponent")
-    public String getOpponent (Model model){
-          Opponent opponent = challengeService.getOpponent();
-          model.addAttribute("opponent", opponent);
-       return "opponent";
-    }
-
-        // http://localhost:8080/game/challenge/execute_challenge.html
-        //@RequestMapping(value = "/get_result", method = RequestMethod.GET)
-        public String getGameResult(Model model, @RequestParam("selectChar") String choice) {
-        String result;
-        List<Player> players;
-        List<Integer> stats = new ArrayList<>();
-
-        players = playerService.generateAllPlayers();
-
-        stats.add(players.get(1).getExperience());
-        stats.add(players.get(1).getCharisma());
-        stats.add(players.get(1).getLuck());
-
-        if (challengeService.executeChallenge1(challengeService.getOpponentStats(), stats) >= 2) {
-            result = "/get_result_win.html";
-            challengeService.saveChallenge(players.get(1).getPlayerId(),
-                    challengeService.getOpponent().getOpponentId(),
-                    "Win");
+            return "execute_challenge";
         } else {
-            result = "/get_result_loose.html";
-            challengeService.saveChallenge(players.get(1).getPlayerId(),
-                    challengeService.getOpponent().getOpponentId(),
-                    "Loose");
+            // * link to random number generator
+            playerOptions.add(new Player(playerName, 100, 5, 2));
+            playerOptions.add(new Player(playerName, 150, 15, 22));
+            playerOptions.add(new Player(playerName, 1000, 1000, 1000));
+
+            model.addAttribute("players_list", playerOptions);
+
+            return "create_new_player";
+        }
+    }
+
+    @GetMapping("/getResult")
+    public String startChallenge(Model model, @RequestParam("selectChar") String choice) {
+
+        // * returns user choice
+
+        switch(choice) {
+            case "choice1":
+                playerChoice = 1;
+                break;
+            case "choice2":
+                playerChoice = 2;
+                break;
+            case "choice3":
+                playerChoice = 3;
+                break;
+            default:
+                playerChoice = 1;
         }
 
-        return result;
+        // * load opponnent from database
+        opponents = new ArrayList<>();
+        opponents.add(new Opponent("Kavita","EVP","Hell spawn"));
+
+        model.addAttribute("key_opponent_list", opponents);
+
+        return "execute_challenge";
+    }
+
+    @GetMapping("/getChallengeResult")
+    public String getChallengeResult(Model model) {
+        int result;
+
+        Player player = playerOptions.get(playerChoice-1);
+
+        model.addAttribute("key_player", player);
+
+        // čia iš esmės lyginam player objekto stats vs random opponnnent stats
+
+        opponents.clear();
+        playerOptions.clear();
+
+        result = 1;
+
+        if (result == 1) {
+            return "get_result_win";
+        }else {
+            return "get_result_loose";
+        }
     }
 
 }

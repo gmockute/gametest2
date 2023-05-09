@@ -9,6 +9,7 @@
       font-family: Courier New;
       font-size: 18px;
       font-weight: bold;
+      position: relative;
     }
     h1 {
       text-align: center;
@@ -19,7 +20,7 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
-      width: 250px;
+      width: 500px;
       height: auto;
     }
     button {
@@ -37,11 +38,16 @@
       color: #FFFFFF;
     }
     table, th, td {
+      position: relative;
       border: 1px solid black;
       text-align: center;
       font-family: Courier New;
-      font-size: 12px;
-      margin: 0 auto
+      font-size: 16px;
+      margin: auto;
+      height: auto
+      width: auto;
+	  height: auto;
+	  background-color: #D6EAF8;
     }
 
     input[type=checkbox] {
@@ -58,20 +64,16 @@
 </head>
 <body>
 <h1>ANOTHER DAY IN THE OFFICE WHEN</h1>
-<p>a bee flies into the meeting room. Your opponent starts to chase it. You are allergic to bees - what do you do.</p>
+<p>a bee flies into the office. Your opponent starts to chase it. You are allergic to bees - what do you do?</p>
 <div style="display: flex;">
     <div>
-        <img src="https://media.tenor.com/7Mh3QqMctdMAAAAC/pixelart-dance.gif"/>
+        <img src="https://38.media.tumblr.com/7e60191f98d442cff094dea01f7a7752/tumblr_ntik0xmTjf1qze3hdo1_r1_500.gif"/>
     </div>
-    <div>
-        <img src="https://images.squarespace-cdn.com/content/v1/578e5aeac534a56c7f816074/1597179129676-4B6ZIZ0V9YLEVDLO4CYZ/ColinAnimation.gif?format=1500w"/>
-
-        <br>
         <table>
             <tr>
-                <th class="th">Opponent Name</th>
-                <th class="th">Role</th>
-                <th class="th">Description</th>
+                <th class="th">Name</th>
+                <th class="th">Role with Company</th>
+                <th class="th">Interests & Character</th>
             </tr>
 
             <tr th:if="${#lists.isEmpty(key_opponent_list)}">

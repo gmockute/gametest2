@@ -2,6 +2,8 @@ package lt.gintare.gametest.player.repository;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -16,7 +18,7 @@ public interface PlayerRepository extends CrudRepository <Player, Integer> {
     @Modifying
     void savePlayerName(@Param("name") String playerName);
 
-    @Query(value = "UPDATE player (" +
+    @Query(value = "UPDATE player (player_name, " +
             "player_experience, " +
             "player_charisma, " +
             "player_luck) " +
@@ -24,7 +26,8 @@ public interface PlayerRepository extends CrudRepository <Player, Integer> {
             "WHERE player_name = :name",
             nativeQuery = true)
     @Modifying
-    void updatePlayer (@Param("exp") int experience,
+    void updatePlayer (@Param("name") String playerName,
+                       @Param("exp") int experience,
                        @Param("cha") int charisma,
                        @Param("luc") int luck);
 

@@ -72,7 +72,7 @@ public class ChallengeController {
                 playerChoice = 3;
                 break;
             default:
-                playerChoice = 1;
+                playerChoice = 0;
         }
         // * load opponent details from database
         model.addAttribute("key_opponent_list", challengeService.getOpponentDetails());

@@ -4,6 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <title>THE OFFICE</title>
+    <style>
+    body {
+      font-family: Courier New;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+    }
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 250px;
+      height: auto;
+    }
+    button {
+      display: block;
+      width: 300px;
+	  height: 50px;
+	  margin: auto;
+	  background-color: #566573;
+      font-family: Courier New;
+	  font-size: 32px;
+	  color: #FFFFFF;
+    }
+    button:hover {
+      background-color: #CD6155;
+      color: #FFFFFF;
+    }
+    table, th, td {
+      border: 1px solid black;
+      text-align: center;
+      font-family: Courier New;
+      font-size: 12px;
+      margin: 0 auto
+    }
+
+    input[type=checkbox] {
+      position: relative;
+      padding: 0;
+    }
+
+    form {
+      text-align: center;
+      margin: 0 auto
+   }
+  </style>
 </head>
 
 <body>
@@ -18,11 +68,11 @@
     </tr>
     <tr>
         <td><b>PLAYER NAME:</b></td>
-        <td th:text="${key_player.name}"></td>
+        <td th:text="${key_player.playerName}"></td>
     </tr>
     <tr>
         <td><b>PLAYER SCORE:</b></td>
-        <!--  <td th:text="${playerService.challenge(playerId)}"> </td> -->
+        <td th:text="${result}"> </td>
     </tr>
 </table>
 <br>

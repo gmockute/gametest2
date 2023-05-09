@@ -2,6 +2,7 @@ package lt.gintare.gametest.player.service;
 
 import lt.gintare.gametest.player.repository.Player;
 import lt.gintare.gametest.player.repository.PlayerRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,27 +15,35 @@ public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
+    // * initialize playerOptions list
     private List<Player> playerOptions = new ArrayList<>();
 
+    // * playerOptions getter
     public List<Player> getPlayerOptions() {
         return playerOptions;
     }
 
+    // * playerOptions setter
     public void setPlayerOptions(List<Player> playerOptions) {
         this.playerOptions = playerOptions;
     }
 
-    // METHOD 1 -> returns list of search results by name
+    // * returns list of database search results by player name
     public List<Player> searchPlayerByName (String name) {
         return playerRepository.findPlayerByName(name);
     }
 
-    // METHOD 2 -> saves user entry of name to database
+    // * saves player name in database
     public void savePlayerByName (String playerName) {
         playerRepository.savePlayerName(playerName);
     }
 
-    // METHOD 3 -> generate 3 Player objects with stats only
+    // * updates all player details in database
+    public void updatePlayer (String playerName, int experience, int charisma, int luck) {
+        playerRepository.updatePlayer(playerName, experience, charisma, luck);
+    }
+
+    // * generates 3 Player objects
     public List<Player> generateAllPlayers (String playerName) {
         List<Player> randomPlayers = new ArrayList<>();
         for (int i = 0; i < 3; i++) {

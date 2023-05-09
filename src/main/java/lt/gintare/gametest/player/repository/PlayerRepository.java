@@ -19,12 +19,12 @@ public interface PlayerRepository extends CrudRepository <Player, Integer> {
     void savePlayerName(@Param("name") String playerName);
 
     @Query(value = "UPDATE player (player_name, " +
-            "player_experience, " +
-            "player_charisma, " +
-            "player_luck) " +
-            "VALUES (:name, :exp, :cha, :luc)" +
-            "WHERE player_name = :name",
-            nativeQuery = true)
+                   "player_experience, " +
+                   "player_charisma, " +
+                   "player_luck) " +
+                   "VALUES (:name, :exp, :cha, :luc)" +
+                   "WHERE player_name = :name",
+                   nativeQuery = true)
     @Modifying
     void updatePlayer (@Param("name") String playerName,
                        @Param("exp") int experience,

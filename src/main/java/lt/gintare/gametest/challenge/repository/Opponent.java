@@ -1,6 +1,7 @@
 package lt.gintare.gametest.challenge.repository;
 
 import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

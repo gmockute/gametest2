@@ -1,15 +1,14 @@
 package lt.gintare.gametest.challenge.controller;
 
-import lt.gintare.gametest.challenge.repository.Opponent;
 import lt.gintare.gametest.challenge.service.ChallengeService;
 import lt.gintare.gametest.player.repository.Player;
 import lt.gintare.gametest.player.service.PlayerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -42,37 +41,26 @@ public class ChallengeController {
     // http://localhost:8080/create_new_player.html
     @RequestMapping(value = "/selectCharacter")
     public String getYourCharacter(Model model, @RequestParam("playerName") String playerName) {
-
         // * load player from database
         List<Player> players = playerService.searchPlayerByName(playerName);
-
-        System.out.println("Create new player request");
-        System.out.println(playerName);
-
         // * check if name exists
         if (!players.isEmpty()){
-
             playerService.getPlayerOptions().add(players.get(0));
             playerChoice = 1;
-
             // * load random opponent details
-            model.addAttribute("key_opponent_list", challengeService.getOpponent());
-
+            model.addAttribute("key_opponent_list", challengeService.getOpponentDetails());
             return "execute_challenge";
-
         } else {
             // * link to random number generator (returns stats list)
             playerService.setPlayerOptions(playerService.generateAllPlayers(playerName));
             model.addAttribute("players_list", playerService.getPlayerOptions());
-
             return "create_new_player";
         }
     }
 
     @GetMapping("/getResult")
     public String startChallenge(Model model, @RequestParam("selectChar") String choice) {
-
-        // * returns user choice
+        // * return user choice
         switch(choice) {
             case "choice1":
                 playerChoice = 1;
@@ -86,36 +74,28 @@ public class ChallengeController {
             default:
                 playerChoice = 1;
         }
-
         // * load opponent details from database
-        model.addAttribute("key_opponent_list", challengeService.getOpponent());
-
+        model.addAttribute("key_opponent_list", challengeService.getOpponentDetails());
         return "execute_challenge";
     }
 
     @GetMapping("/getChallengeResult")
     public String getChallengeResult(Model model) {
-
         int result;
-
         model.addAttribute("key_player", playerService.getPlayerOptions().get(playerChoice-1));
-
         // * player object stats v. random opponent stats comparison
-        // playerService.getPlayerOptions().clear();
+
 
         result = challengeService.executeChallenge1(challengeService.getOpponentStats(),
                  playerService.getPlayerOptions().get(playerChoice-1));
         model.addAttribute("result", result);
-
         // * issaugoti i duombaze - player i player (vardas + stats)
-
         if (result >= 2) {
             return "get_result_win";
         } else {
             return "get_result_loose";
         }
     }
-
 
 }
 

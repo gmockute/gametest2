@@ -14,6 +14,16 @@ public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
+    private List<Player> playerOptions = new ArrayList<>();
+
+    public List<Player> getPlayerOptions() {
+        return playerOptions;
+    }
+
+    public void setPlayerOptions(List<Player> playerOptions) {
+        this.playerOptions = playerOptions;
+    }
+
     // METHOD 1 -> returns list of search results by name
     public List<Player> searchPlayerByName (String name) {
         return playerRepository.findPlayerByName(name);
@@ -25,10 +35,11 @@ public class PlayerService {
     }
 
     // METHOD 3 -> generate 3 Player objects with stats only
-    public List<Player> generateAllPlayers () {
+    public List<Player> generateAllPlayers (String playerName) {
         List<Player> randomPlayers = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             Player newPlayer = new Player();
+            newPlayer.setPlayerName(playerName);
             newPlayer.setExperience((int) (Math.random() * (100 - 20 + 1) + 20));
             newPlayer.setCharisma((int) (Math.random() * (60 - 40 + 1) + 40));
             newPlayer.setLuck((int) (Math.random() * (50 - 10 + 1) + 10));
@@ -36,7 +47,5 @@ public class PlayerService {
         }
         return randomPlayers;
     }
-    
-    // METHOD 4 -> save player object to database
 
 }

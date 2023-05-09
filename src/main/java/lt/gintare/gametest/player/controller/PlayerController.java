@@ -40,11 +40,5 @@ public class PlayerController {
           }
        }
 
-    // http://localhost:8080/game/player/{name}
-    @GetMapping(path = "/{name}")
-    public @ResponseBody List<Player> getPlayerByName (@PathVariable String name){
-        return playerService.searchPlayerByName(name);
-    }
-
 
 }

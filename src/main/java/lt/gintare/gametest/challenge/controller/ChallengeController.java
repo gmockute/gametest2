@@ -61,19 +61,7 @@ public class ChallengeController {
     @GetMapping("/getResult")
     public String startChallenge(Model model, @RequestParam("selectChar") String choice) {
         // * return user choice
-        switch(choice) {
-            case "choice1":
-                playerChoice = 1;
-                break;
-            case "choice2":
-                playerChoice = 2;
-                break;
-            case "choice3":
-                playerChoice = 3;
-                break;
-            default:
-                playerChoice = 0;
-        }
+
         // * load opponent details from database
         model.addAttribute("key_opponent_list", challengeService.getOpponentDetails());
         return "execute_challenge";
@@ -84,12 +72,11 @@ public class ChallengeController {
         int result;
         model.addAttribute("key_player", playerService.getPlayerOptions().get(playerChoice-1));
         // * player object stats v. random opponent stats comparison
-
-
         result = challengeService.executeChallenge1(challengeService.getOpponentStats(),
                  playerService.getPlayerOptions().get(playerChoice-1));
         model.addAttribute("result", result);
         // * issaugoti i duombaze - player i player (vardas + stats)
+
         if (result >= 2) {
             return "get_result_win";
         } else {

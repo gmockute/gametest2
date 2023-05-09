@@ -88,9 +88,9 @@
 </div>
 <br>
 
-<form action="#" th:action="@{/executeChallenge}" th:object="${key_challenge}" method="post">
+<form action="#" th:action="@{/getChallengeResult}" th:object="${key_challenge}" method="get">
     <input type="submit" value="Take Action" />
-    <input type="submit" value="Do Nothing" onclick="document.getElementById('companyName').value = ''"/>
+    <input type="submit" value="Do Nothing"/>
 </form>
 
 </br>

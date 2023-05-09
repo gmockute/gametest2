@@ -18,18 +18,17 @@
     </tr>
     <tr>
         <td><b>PLAYER NAME:</b></td>
-        <td th:text="${key_player.playerName}"></td>
+        <td th:text="${key_player.name}"></td>
     </tr>
     <tr>
         <td><b>PLAYER SCORE:</b></td>
-        <td th:text="${playerService.challenge(playerId)}"> </td>
+        <!--  <td th:text="${playerService.challenge(playerId)}"> </td> -->
     </tr>
 </table>
 <br>
-<button type="button"
-        onclick="window.location.href='http://localhost:63342/officegame/start_page.html?'
-                     ">PLAY AGAIN?
-</button>
+<form action="/enterName" method="get">
+    <button type="submit"> Play again?</button>
+</form>
 </br>
 </body>
 

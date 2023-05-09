@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 // @RequestMapping("/game/challenge")
@@ -20,10 +21,8 @@ public class ChallengeController {
     ChallengeService challengeService;
     @Autowired
     PlayerService playerService;
-    @Autowired
-    Player player;
-    @Autowired
-    Opponent opponent;
+
+    int playerChoice;
 
     // 1. Home Page -> Enter Player Name
     // http://localhost:8080/start_my_page.html or http://localhost:8080/index.html
@@ -44,32 +43,27 @@ public class ChallengeController {
     @RequestMapping(value = "/selectCharacter")
     public String getYourCharacter(Model model, @RequestParam("playerName") String playerName) {
 
-        // * load player from SQL
-        playerOptions = new ArrayList<>();
-        Player player = new Player("", 1,1,1);
+        // * load player from database
+        List<Player> players = playerService.searchPlayerByName(playerName);
 
         System.out.println("Create new player request");
         System.out.println(playerName);
 
         // * check if name exists
+        if (!players.isEmpty()){
 
-        if (player.getPlayerName().equals(playerName)){
-            opponents = new ArrayList<>();
-            opponents.add(new Opponent("Kavita","EVP","Hell spawn"));
-
-            playerOptions.add(player);
+            playerService.getPlayerOptions().add(players.get(0));
             playerChoice = 1;
 
-            model.addAttribute("key_opponent_list", opponents);
+            // * load random opponent details
+            model.addAttribute("key_opponent_list", challengeService.getOpponent());
 
             return "execute_challenge";
-        } else {
-            // * link to random number generator
-            playerOptions.add(new Player(playerName, 100, 5, 2));
-            playerOptions.add(new Player(playerName, 150, 15, 22));
-            playerOptions.add(new Player(playerName, 1000, 1000, 1000));
 
-            model.addAttribute("players_list", playerOptions);
+        } else {
+            // * link to random number generator (returns stats list)
+            playerService.setPlayerOptions(playerService.generateAllPlayers(playerName));
+            model.addAttribute("players_list", playerService.getPlayerOptions());
 
             return "create_new_player";
         }
@@ -79,7 +73,6 @@ public class ChallengeController {
     public String startChallenge(Model model, @RequestParam("selectChar") String choice) {
 
         // * returns user choice
-
         switch(choice) {
             case "choice1":
                 playerChoice = 1;
@@ -94,36 +87,35 @@ public class ChallengeController {
                 playerChoice = 1;
         }
 
-        // * load opponnent from database
-        opponents = new ArrayList<>();
-        opponents.add(new Opponent("Kavita","EVP","Hell spawn"));
-
-        model.addAttribute("key_opponent_list", opponents);
+        // * load opponent details from database
+        model.addAttribute("key_opponent_list", challengeService.getOpponent());
 
         return "execute_challenge";
     }
 
     @GetMapping("/getChallengeResult")
     public String getChallengeResult(Model model) {
+
         int result;
 
-        Player player = playerOptions.get(playerChoice-1);
+        model.addAttribute("key_player", playerService.getPlayerOptions().get(playerChoice-1));
 
-        model.addAttribute("key_player", player);
+        // * player object stats v. random opponent stats comparison
+        // playerService.getPlayerOptions().clear();
 
-        // čia iš esmės lyginam player objekto stats vs random opponnnent stats
+        result = challengeService.executeChallenge1(challengeService.getOpponentStats(),
+                 playerService.getPlayerOptions().get(playerChoice-1));
+        model.addAttribute("result", result);
 
-        opponents.clear();
-        playerOptions.clear();
+        // * issaugoti i duombaze - player i player (vardas + stats)
 
-        result = 1;
-
-        if (result == 1) {
+        if (result >= 2) {
             return "get_result_win";
-        }else {
+        } else {
             return "get_result_loose";
         }
     }
+
 
 }
 

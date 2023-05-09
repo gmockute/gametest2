@@ -3,6 +3,7 @@ package lt.gintare.gametest.challenge.service;
 import lt.gintare.gametest.challenge.repository.ChallengeRepository;
 import lt.gintare.gametest.challenge.repository.Opponent;
 import lt.gintare.gametest.challenge.repository.OpponentRepository;
+import lt.gintare.gametest.player.repository.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class ChallengeService {
     ChallengeRepository challengeRepository;
 
     //METHOD 1 -> get random opponent
-    public Opponent getOpponent() {
+    public List<Opponent> getOpponent() {
         return opponentRepository.getRandomOpponent();
     }
 
@@ -32,15 +33,15 @@ public class ChallengeService {
     }
 
     // METHOD 3-> compare stats and assign scores (TakeChallenge button)
-    public int executeChallenge1(List<Integer> opponent, List<Integer> player) {
+    public int executeChallenge1(List<Integer> opponent, Player player) {
         int result = 0;
-        if (opponent.get(0) > player.get(0)) {
+        if (opponent.get(0) > player.getExperience()) {
             result += 1;
         }
-        if (opponent.get(1) > player.get(1)) {
+        if (opponent.get(1) > player.getCharisma()) {
             result += 1;
         }
-        if (opponent.get(2) > player.get(2)) {
+        if (opponent.get(2) > player.getLuck()) {
             result += 1;
         }
         return result;
